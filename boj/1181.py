@@ -12,3 +12,19 @@ input:
 output:
 조건에 따라 정렬하여 단어들을 출력한다. 단, 같은 단어가 여러 번 입력된 경우에는 한 번씩만 출력한다.
 """
+n =  int(input())
+_word = []
+for _ in range(n):
+	w = input()
+	if w not in _word:
+		_word.append(w)
+
+_size = [[] for _ in range(51)]
+
+for w in _word:
+	_size[len(w)].append(w)
+
+for s in _size:
+	s.sort()
+	for i in s:
+		print(i)
