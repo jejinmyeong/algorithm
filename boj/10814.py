@@ -12,3 +12,17 @@ output:
 첫째 줄부터 총 N개의 줄에 걸쳐 온라인 저지 회원을 나이 순, 나이가 같으면 가입한 순으로 한 줄에 한 명씩 나이와 이름을 공백으로 구분해 출력한다.
 """
 
+n = int(input())
+
+_user = []
+
+for _ in range(n):
+	_user.append(input().split())
+
+for idx, i in enumerate(_user):
+	_user[idx][0] = int(i[0])
+
+_user.sort(key=lambda x:x[0])
+
+for age, name in _user:
+	print(age, name)
