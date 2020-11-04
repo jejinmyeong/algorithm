@@ -16,23 +16,15 @@ output:
 첫째 줄에 모든 집을 칠하는 비용의 최솟값을 출력한다.
 
 """
-
 import sys
 
 n = int(sys.stdin.readline())
 RGB = [list(map(int, sys.stdin.readline().split())) for _ in range(n)]
-price = []
 
-prev = 4
+for i in range(1, len(RGB)):
 
-for n in RGB:
-	temp = 99999999
-	for idx, i in enumerate(n):
-		if i < temp and idx != prev:
-			temp = i
-			prev = idx
-	price.append(temp)
+	RGB[i][0] += min(RGB[i - 1][1], RGB[i - 1][2])
+	RGB[i][1] += min(RGB[i - 1][0], RGB[i - 1][2])
+	RGB[i][2] += min(RGB[i - 1][0], RGB[i - 1][1])
 
-print(price)
-
-#def draw():
+print(min(RGB[n - 1][0], RGB[n - 1][1], RGB[n - 1][2]))
