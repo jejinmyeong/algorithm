@@ -15,3 +15,25 @@ input:
 output:
 첫째 줄에 최대로 마실 수 있는 포도주의 양을 출력한다.
 """
+
+import sys
+
+n = int(sys.stdin.readline())
+wine = [int(sys.stdin.readline()) for _ in range(n)]
+
+dp =[]
+dp.append(wine[0])
+
+if n >=3:
+	for i in range(1,3):
+		if i == 1:
+			dp.append(dp[i-1] + wine[i])
+			continue
+		dp.append(max(dp[i-2] + wine[i], wine[i-1] + wine[i]))
+
+	for i in range(3, n):
+		dp.append(max(wine[i]+ wine[i-1] + max(dp[:i-2]), wine[i] + max(dp[:i-1])))
+else:
+	for i in range(1, n):
+		dp.append(dp[i-1] + wine[i])
+print(max(dp))
