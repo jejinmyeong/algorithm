@@ -16,3 +16,35 @@ input:
 output:
 첫째 줄에 입력으로 주어진 M개의 수에 대해서, 각 수가 적힌 숫자 카드를 상근이가 몇 개 가지고 있는지를 공백으로 구분해 출력한다.
 """
+
+import sys
+
+input = sys.stdin.readline
+
+n = int(input())
+num = list(map(int, input().split()))
+m = int(input())
+mum = list(map(int, input().split()))
+
+mum_2 = sorted()
+
+result = [0] * 20000001
+
+def search(num, val, fst, end):
+	if fst > end:
+		return False
+	mid = (fst + end)//2
+
+	if num[mid] > val:
+		return search(num, val, fst, mid -1)
+	elif num[mid] < val :
+		return search(num, val, mid + 1, end)
+	else:
+		return True
+
+for i in num:
+	if search(mum_2, i, 0, n-1):
+		result[i+10000000] += 1
+
+for i in mum:
+	print(result[i+10000000], end=" ")
