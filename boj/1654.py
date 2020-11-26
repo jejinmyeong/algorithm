@@ -26,25 +26,16 @@ k, n = map(int, input().split())
 
 wire = [int(input()) for _ in range(k)]
 
-def cut(arr, fst, end, bool):
-	if fst >= end-1:
-		if bool == 1:
-			print(end)
-		else:
-			print(fst)
+def cut(arr, fst, end):
+	mid = (fst+ end)//2
+	if fst > end:
+		print(end)
 		sys.exit()
-
-	mid = (fst+end)//2
 	cnt = 0
-
 	for i in arr:
 		cnt += i//mid
-	
 	if cnt >= n:
-		cut(arr, mid, end, 1)
+		cut(arr, mid+1, end)
 	else:
-		cut(arr, fst, mid-1, 0)
-
-
-
-cut(wire, 0, max(wire), 0)
+		cut(arr, fst, mid-1)
+cut(wire, 0, 10000000000)
