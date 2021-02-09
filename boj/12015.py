@@ -13,3 +13,35 @@ input:
 output:
 첫째 줄에 수열 A의 가장 긴 증가하는 부분 수열의 길이를 출력한다.
 """
+
+import sys
+
+input = sys.stdin.readline
+
+n = int(input())
+
+a = list(map(int, input().split()))
+
+dp = [0]
+
+def seq(low, high, arr, i):
+	global dp
+	print(dp)
+
+	if low > high:
+		if low>=len(dp):
+			dp.append(arr[i])
+		else:
+			dp[low] = a[i]
+		return 0
+
+	mid = (low+high)//2
+	if dp[mid] < arr[i]:
+		seq(mid+1, high, arr, i)
+	else:
+		seq(low, mid-1, arr, i)
+
+for i in range(n):
+	seq(0, len(dp)-1, a, i)
+
+print(len(dp)-1)
