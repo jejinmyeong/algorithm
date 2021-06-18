@@ -19,13 +19,19 @@ number는 1 이상 32,000 이하입니다.
 def solution(N, number):
     answer = 0
 
-    dp = dict()
-    dp[0] = [N]
-    dp[1] = [int(str(N)+str(N)),N+N,N-N,N//N,N*N]
+    dp = [[],[],[]]
+    dp[1] = [N]
+    dp[2] = [int(str(N)+str(N)),N+N,N-N,N//N,N*N]
 
     print(dp)
 
-    #for i in range(2,8):
+    for i in range(3,9):
+        dp.append([])
+        dp[i].append(int(str(dp[0][0])+str(dp[1][0])))
+        for 
+    
+    print(dp)
+        
 
 
     return answer
