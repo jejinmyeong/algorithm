@@ -18,23 +18,40 @@ number는 1 이상 32,000 이하입니다.
 """
 def solution(N, number):
     answer = 0
+    ck = 0
 
     dp = [[],[],[]]
     dp[1] = [N]
+    if number in dp[1]:
+        return 1
     dp[2] = [int(str(N)+str(N)),N+N,N-N,N//N,N*N]
-
-    print(dp)
+    if number in dp[2]:
+        return 2
 
     for i in range(3,9):
-        dp.append([])
-        dp[i].append(int(str(dp[0][0])+str(dp[1][0])))
-        for 
+        fst = ''
+        for _i in range(i):
+            fst += str(N)
+        dp.append([int(fst)])
+        for j in range(1, i//2+1):
+            for n in dp[j]:
+                for m in dp[i-j]:
+                    dp[i].append(n+m)
+                    dp[i].append(n-m)
+                    dp[i].append(m-n)
+                    dp[i].append(n*m)
+                    if m != 0:
+                        dp[i].append(n//m)
+                    if n != 0:
+                        dp[i].append(m//n)
+        if number in dp[i]:
+            ck = 1
+            break;
     
-    print(dp)
-        
+    answer = len(dp)-1
 
-
-    return answer
+    
+    return answer if ck ==1 else -1
 
 def main():
     N = 5
