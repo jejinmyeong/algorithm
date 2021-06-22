@@ -1,29 +1,28 @@
 def solution(n, results):
-    chart = [[0] * n for _ in range(n)] # 승패표
+    answer = 0
+
+    win_arr = [[0] *(n) for _ in range(n)]
     WIN, LOSE = 1, -1
-    for i, j in results: # 내입장 wind = 상대방 lose
-        chart[i-1][j-1], chart[j-1][i-1] = WIN, LOSE
+
+    for w, l in results:
+        win_arr[w-1][l-1], win_arr[l-1][w-1] = WIN, LOSE
+
+    for i in range(n):
+        loses = [idx for idx, rst in enumerate(win_arr[i]) if rst == LOSE]
+        
+        while loses:
+            winer = loses.pop()
+            for idx, rst in enumerate(win_arr[winer]):
+                if rst == LOSE and win_arr[i][idx] == 0:
+                    win_arr[i][idx], win_arr[idx][i] = LOSE, WIN
+                    loses.append(idx)
+            for w in win_arr:
+                print(w)
+            print()
     
-    for i in range(len(chart)): print(chart[i])
-    print()
+    answer = len([x for x in win_arr if x.count(0) == 1])
 
-    for me in range(n):
-        wins = [opp for opp, rst in enumerate(chart[me]) if rst == WIN]
-        print(wins)
-        while wins:
-            loser = wins.pop()
-            for opp, rst in enumerate(chart[loser]):
-                if rst == WIN and chart[me][opp] == 0:
-                    chart[me][opp], chart[opp][me] = WIN, LOSE
-                    wins.append(opp)
-        print(wins)
-        print()
-    
-    for i in range(len(chart)): print(chart[i])
-    print()
-
-
-    return len(['know' for x in chart if x.count(0) == 1])
+    return answer
 
 def main():
     n = 5
