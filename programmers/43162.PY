@@ -14,6 +14,25 @@ computer[i][i]는 항상 1입니다.
 
 def solution(n, computers):
     answer = 0
+    CON, DIS = 1, 0
+
+
+    for i in range(n):
+        cons = [idx for idx, rst in enumerate(computers[i]) if rst == CON and idx != i]
+        while cons:
+            n_cons = cons.pop()
+            for idx, rst in enumerate(computers[n_cons]):
+                if rst == 1 and computers[i][idx] == 0:
+                    computers[i][idx], computers[idx][i] = CON, CON
+                    cons.append(idx)
+
+    _list = []
+    for c in computers:
+        if c not in _list:
+            _list.append(c)
+
+    answer = len(_list)
+
     return answer
 
 def main():
