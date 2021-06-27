@@ -12,19 +12,27 @@
 
 def solution(m, n, puddles):
     answer = 0
-    dp = [[0]*m for _ in range(n)]
+    dp = [[0]*(m+1) for _ in range(n+1)]
 
-    for y in range(n):
-        for x in range(m):
-            
+    dp[1][1] = 1
 
+    for y in range(1, n+1):
+        for x in range(1, m+1):
+            if x == 1 and y == 1:
+                continue
+            if [x, y] in puddles:
+                dp[y][x] = 0
+            else:
+                dp[y][x] = (dp[y-1][x]+dp[y][x-1])%1000000007  
+
+    answer = dp[n][m]
 
     return answer
 
-def main(m, n, puddles):
-    m = 
-    n = 
-    puddles = 
+def main():
+    m = 4
+    n = 3
+    puddles = [[2,2]]
     print(solution(m, n, puddles))
 
 if __name__ == "__main__":
