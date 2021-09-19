@@ -43,7 +43,6 @@ public class Main_BJ_17472_다리만들기2 {
 	static ArrayList<ArrayList<int[]>> islands;
 	static ArrayList<int[]> totalLand;
 	static ArrayList<Edge> arr;
-	static int [] parent;
 	
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -70,24 +69,23 @@ public class Main_BJ_17472_다리만들기2 {
 		size = islands.size();
 		
 		arr = new ArrayList<>();
-		parent = new int [size];
 		
 		bridge();	// 각 섬간 최소 다리 길이 구하기
 		
 		Collections.sort(arr);
-		init();
+		
+		make();
 		
 		int ans = 0;
-		for (int i = 0 ; i < arr.size() ; i++) {
-			//System.out.println(Arrays.toString(parent));
-			Edge edge = arr.get(i);
-			if(!isSameParent(edge.x, edge.y)) {
+		int con = 0;
+		for (Edge edge : arr) {
+			if(union(edge.x, edge.y)) {
 				ans += edge.w;
-				union(edge.x, edge.y);
+				if(++con == size-1) break;
 			}
 			
 		}
-		if (ans == 0) ans = -1;
+		if (con != size-1) ans = -1;
 		
 		
 //		for (Edge e : arr) {
@@ -105,30 +103,28 @@ public class Main_BJ_17472_다리만들기2 {
 		System.out.println(ans);
 	}
 	
-	static void init() {
-		for(int i = 0 ; i < size ; i++) {
-			parent[i] = i;
+	static int[] parents; // 부모원소를 관리(트리처럼 사용)
+	private static void make() {
+		parents = new int[size];
+		// 모든 원소를 자신을 대표자로 만듦
+		for (int i = 0; i < size; i++) {
+			parents[i] = i;
 		}
 	}
-	
-	static int find(int x) {
-		if(parent[x] == x) {
-			return x;
-		}
-		return parent[x] = find(parent[x]);
+	// a가 속한 집합의 대표자 찾기
+	private static int find(int a) {
+		if(a==parents[a]) return a; // 자신이 대표자.
+		return parents[a] = find(parents[a]); // 자신이 속합 집합의 대표자를 자신의 부모로 : path compression
 	}
-	
-	static void union(int x, int y) {
-		x = find(x);
-		y = find(y);
-		if (x != y) parent[y] = x;
-	}
-	
-	static boolean isSameParent(int x, int y) {
-		x = find(x);
-		y = find(y);
-		if (x == y) return true;
-		else return false;
+
+	// 두 원소를 하나의 집합으로 합치기(대표자를 이용해서 합침)
+	private static boolean union(int a, int b) {
+		int aRoot = find(a);
+		int bRoot = find(b);
+		if(aRoot == bRoot) return false; // 이미 같은 집합으로 합치지 않음
+		
+		parents[bRoot] = aRoot;
+		return true;
 	}
 	
 	// 섬 분리하기 bfs
