@@ -6,6 +6,9 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
+/*
+ * 		메모리  11668KB		시간	92ms
+ */
 public class Main_BJ_2293_동전1 {
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -21,24 +24,15 @@ public class Main_BJ_2293_동전1 {
 			type[i] = Integer.parseInt(br.readLine());
 		}
 		
-		Arrays.sort(type);
 		
-		int minCoin = type[0];
+		dp[0] = 1;
 		
-		dp[minCoin] = 1;
-		
-		for (int i = minCoin+1 ; i <= k ; i++) {
-			int temp = 0;
-			for (int j = 0 ; j < n ; j++) {
-				if (i - type[j] > 0) break;
-				if (i % type[j] == 0) temp++;
-				temp+= dp[i-type[j]];
+		for (int i = 0 ; i < n ; i++) {
+			for (int j = type[i] ; j <= k ; j++) {
+				dp[j] += dp[j-type[i]];
 			}
-			dp[i] = temp;
 		}
 		
-		System.out.println(Arrays.toString(dp));
-		
-		
+		System.out.println(dp[k]);
 	}
 }
