@@ -28,31 +28,29 @@ public class Main_BJ_7579_앱 {
 		
 		App [] apps = new App[N+1];
 		
-		int maxMem = 0;
-		final int INF = 1_000_000_001;
+		int sumCost = 0;
 		
 		st = new StringTokenizer(br.readLine());
 		StringTokenizer st2 = new StringTokenizer(br.readLine());
 		for (int i = 1 ; i <= N ;i++) {
 			apps[i] = new App(Integer.parseInt(st.nextToken()),Integer.parseInt(st2.nextToken()));
-			if (maxMem < apps[i].mem) maxMem = apps[i].mem;
+			sumCost += apps[i].cost;
 		}
 		
-		int [] dp = new int [M+1];
-		int [] before;
-		Arrays.fill(dp, INF);
+		int [][] dp = new int [N+1][sumCost+1];
+		int ans = 10001;
 		
 		for (int i = 1 ; i <= N ; i++) {
-			before = Arrays.copyOf(dp, M+1);
-			for (int j = 1 ; j <= M ; j++) {
-				if (j <= apps[i].mem) {
-					dp[j] = Math.min(before[j], apps[i].cost);
+			for (int j = 0 ; j <= sumCost ; j++) {
+				if (j < apps[i].cost) {
+					dp[i][j] = dp[i-1][j];
 				}else {
-					dp[j] = Math.min(before[j], before[j - apps[i].mem] + apps[i].cost);
+					dp[i][j] = Math.max(dp[i-1][j], dp[i-1][j - apps[i].cost] + apps[i].mem);
 				}
+				if (dp[i][j] >= M) ans = Math.min(ans, j);
 			}
 		}
+		System.out.println(ans);
 		
-		System.out.println(dp[M]);
 	}
 }
