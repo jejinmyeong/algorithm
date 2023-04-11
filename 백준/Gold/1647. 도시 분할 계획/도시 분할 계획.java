@@ -50,15 +50,15 @@ public class Main {
         boolean [] visited = new boolean[N + 1];
 
         queue.offer(new Node(1, 0));
-
-        PriorityQueue<Integer> route = new PriorityQueue<>(Collections.reverseOrder());
-
+        int res = 0;
+        int maxWeight = 0;
         while (!queue.isEmpty()) {
             Node now = queue.poll();
 
             if (visited[now.e]) continue;
             visited[now.e] = true;
-            route.offer(now.w);
+            res += now.w;
+            maxWeight = Math.max(maxWeight, now.w);
 
             for (int i = 0 ; i < nodes[now.e].size() ; i++) {
                 Node next = nodes[now.e].get(i);
@@ -69,13 +69,7 @@ public class Main {
             }
         }
 
-        route.poll();
-        int res = 0;
-        while (!route.isEmpty()) {
-            res += route.poll();
-        }
-
-        return res;
+        return res - maxWeight;
     }
 
 }
