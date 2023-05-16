@@ -30,7 +30,9 @@ public class Main {
         Collections.sort(res, Collections.reverseOrder());
 
         for (String s : res) {
-            System.out.println(s);
+            sb.append(s).append("\n");
         }
+
+        System.out.print(sb);
     }
 }
