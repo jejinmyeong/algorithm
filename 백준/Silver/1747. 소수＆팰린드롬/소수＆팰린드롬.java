@@ -8,20 +8,20 @@ public class Main {
 
         int N = Integer.parseInt(br.readLine());
 
-        boolean [] prime = new boolean[10_000_001];
+        boolean [] prime = new boolean[1_300_002];
 
         Arrays.fill(prime, true);
 
         prime[0] = false;
         prime[1] = false;
 
-        for (int i = 2 ; i <= 10_000_000 ; i++) {
-            for (int j = i * 2 ; j <= 10_000_000 ; j += i) {
+        for (int i = 2 ; i <= 1_300_001 ; i++) {
+            for (int j = i * 2 ; j <= 1_300_001 ; j += i) {
                 prime[j] = false;
             }
         }
 
-        for (int i = N ; i <= 10_000_000 ; i++) {
+        for (int i = N ; i <= 1_300_001 ; i++) {
             if (!prime[i]) continue;
             String num = String.valueOf(i);
             boolean flag = true;
