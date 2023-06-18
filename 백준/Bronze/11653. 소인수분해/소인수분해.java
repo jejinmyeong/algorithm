@@ -10,28 +10,14 @@ public class Main {
 
         if (N == 1) return;
 
-        boolean [] isPrime = new boolean[N + 1];
-        Arrays.fill(isPrime, true);
-        isPrime[0] = false;
-        isPrime[1] = false;
-
-        ArrayList<Integer> prime = new ArrayList<>();
-
-        for (int i = 2 ; i <= N ; i++) {
-            if (isPrime[i]) prime.add(i);
-
-            for (int j = i + i ; j <= N ; j += i) isPrime[j] = false;
-        }
-
-        while (N != 1) {
-            for (int p : prime) {
-                if (N % p == 0) {
-                    sb.append(p).append("\n");
-                    N /= p;
-                    break;
-                }
+        for (int i = 2 ; i <= Math.sqrt(N) ; i++) {
+            while (N % i == 0) {
+                sb.append(i).append("\n");
+                N /= i;
             }
         }
+
+        if (N != 1) sb.append(N).append("\n");
 
         System.out.print(sb);
     }
