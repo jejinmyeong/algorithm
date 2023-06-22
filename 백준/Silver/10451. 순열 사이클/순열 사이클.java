@@ -12,12 +12,11 @@ public class Main {
         while (T-- > 0) {
             int N = Integer.parseInt(br.readLine());
 
-            int [][] arr = new int[2][N + 1];
+            int [] arr = new int[N + 1];
 
             st = new StringTokenizer(br.readLine());
             for (int i = 1 ; i <= N ; i++) {
-                arr[0][i] = i;
-                arr[1][i] = Integer.parseInt(st.nextToken());
+                arr[i] = Integer.parseInt(st.nextToken());
             }
 
             boolean [] visited = new boolean[N + 1];
@@ -27,30 +26,15 @@ public class Main {
             for (int i = 1 ; i <= N ; i++) {
                 if (visited[i]) continue;
 
-                boolean [] temp = new boolean[N + 1];
-
-                Queue<Integer> queue = new ArrayDeque<>();
-                queue.offer(i);
-
-                boolean isCycle = false;
-                while (!queue.isEmpty()) {
-                    int now = queue.poll();
-
-                    int next = arr[1][now];
-                    if (temp[next]) {
-                        isCycle = true;
+                visited[i] = true;
+                int now = arr[i];
+                while (true) {
+                    if (visited[now]) {
                         ans++;
                         break;
                     }
-
-                    temp[next] = true;
-                    queue.offer(next);
-                }
-
-                if (!isCycle) continue;
-
-                for (int j = 1 ; j <= N ; j++) {
-                    visited[j] = visited[j] | temp[j];
+                    visited[now] = true;
+                    now = arr[now];
                 }
             }
 
