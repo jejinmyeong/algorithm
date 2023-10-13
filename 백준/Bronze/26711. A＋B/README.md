@@ -24,5 +24,5 @@
 
 ### 출력 
 
- <p>W jedynym wierszu wyjścia powinien znaleźć się wynik dodawania a + b.</p>
+ <p>W jedynym wierszu wyjścia powinien znaleźć się wynik dodawania a + b.</p> 
 
