@@ -16,7 +16,7 @@
 
 ### 문제 설명
 
-<p>여러분은 요즘 유행하는 심리검사인 MBTI에 대해 들어보았는가?</p>
+<p>여러분은 요즘 유행하는 심리검사인 MBTI에 대해 들어보았는가?</p> 
 
 <p>MBTI(Myers-Briggs Type Indicator)는 C.G.Jung의 심리유형론을 근거로 하여 Katharine Cook Briggs와 Isabel Briggs Myers가 보다 쉽고 일상생활에 유용하게 활용할 수 있도록 고안한 자기보고식 성격유형지표이다. (출처: 위키백과)</p>
 
