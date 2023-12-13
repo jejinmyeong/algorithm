@@ -31,11 +31,11 @@ public class Main {
             return;
         }
 
-        int cnt = 0;
+        long cnt = 0;
 
         // 짝수를 왼쪽에 정렬하는 방법
         int start = odd.get(0);
-        int temp = 0;
+        long temp = 0;
         for (int i = 0 ; i < even.size() ; i++) {
             if (even.get(i) < start) continue;
 
