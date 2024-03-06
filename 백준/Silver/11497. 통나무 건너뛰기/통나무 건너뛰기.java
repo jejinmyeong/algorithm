@@ -23,27 +23,25 @@ public class Main {
 
             Arrays.sort(arr, Collections.reverseOrder());
 
-            Deque<Integer> deque = new ArrayDeque<>();
+            int [] temp = new int[2];
 
-            int ans = 0;
+            temp[0] = arr[0];
+            temp[1] = arr[1];
 
-            for (int i = 0 ; i < N ; i++) {
+            int ans = temp[0] - temp[1];
+
+            for (int i = 2 ; i < N ; i++) {
                 int now = arr[i];
 
-                if (deque.isEmpty()) {
-                    deque.offer(now);
-                    continue;
-                }
-
-                if (deque.peekFirst() - now > deque.peekLast() - now) {
-                    ans = Math.max(ans, deque.peekFirst() - now);
-                    deque.offerFirst(now);
+                if (temp[0] - now > temp[1] - now) {
+                    ans = Math.max(ans, temp[0] - now);
+                    temp[0] = now;
                 } else {
-                    ans = Math.max(ans, deque.peekLast() - now);
-                    deque.offerLast(now);
+                    ans = Math.max(ans, temp[1] - now);
+                    temp[1] = now;
                 }
 
-                ans = Math.max(ans, Math.abs(deque.peekFirst() - deque.peekLast()));
+                ans = Math.max(ans, Math.abs(temp[0] - temp[1]));
             }
 
             sb.append(ans).append("\n");
