@@ -23,25 +23,23 @@ public class Main {
 
             Arrays.sort(arr, Collections.reverseOrder());
 
-            int [] temp = new int[2];
+            int left = arr[0];
+            int right = arr[1];
 
-            temp[0] = arr[0];
-            temp[1] = arr[1];
-
-            int ans = temp[0] - temp[1];
+            int ans = left-right;
 
             for (int i = 2 ; i < N ; i++) {
                 int now = arr[i];
 
-                if (temp[0] - now > temp[1] - now) {
-                    ans = Math.max(ans, temp[0] - now);
-                    temp[0] = now;
+                if (left - now > right - now) {
+                    ans = Math.max(ans, left - now);
+                    left = now;
                 } else {
-                    ans = Math.max(ans, temp[1] - now);
-                    temp[1] = now;
+                    ans = Math.max(ans, right - now);
+                    right = now;
                 }
 
-                ans = Math.max(ans, Math.abs(temp[0] - temp[1]));
+                ans = Math.max(ans, Math.abs(left - right));
             }
 
             sb.append(ans).append("\n");
