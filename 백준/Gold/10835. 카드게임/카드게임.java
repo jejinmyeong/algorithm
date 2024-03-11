@@ -3,43 +3,54 @@ import java.io.*;
 import java.math.*;
 
 public class Main {
-    static int N, ans;
+    static int N;
     static int [] left, right;
+    static int [][] dp;
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st;
 
         N = Integer.parseInt(br.readLine());
 
         left = new int[N];
         right = new int[N];
 
-        StringTokenizer st1 = new StringTokenizer(br.readLine());
-        StringTokenizer st2 = new StringTokenizer(br.readLine());
+        st = new StringTokenizer(br.readLine());
 
         for (int i = 0 ; i < N ; i++) {
-            left[i] = Integer.parseInt(st1.nextToken());
-            right[i] = Integer.parseInt(st2.nextToken());
+            left[i] = Integer.parseInt(st.nextToken());
         }
 
-        bt(0, 0, 0);
+        st = new StringTokenizer(br.readLine());
 
-        System.out.println(ans);
+        for (int i = 0 ; i < N ; i++) {
+            right[i] = Integer.parseInt(st.nextToken());
+        }
 
+        dp = new int[N][N];
+
+        for (int i = 0 ; i < N ; i++) {
+            Arrays.fill(dp[i], -1);
+        }
+
+        System.out.println(dfs(0, 0));
     }
 
-    static void bt(int l, int r, int s) {
+    static int dfs (int l, int r) {
         if (l == N || r == N) {
-            ans = Math.max(ans, s);
-            return;
+            return 0;
         }
 
-        // 왼쪽만 버리는 경우
-        bt(l + 1, r, s);
-        // 둘다 버리는 경우
-        bt(l + 1, r + 1, s);
-        // 오른쪽만 버리는 경우
-        if (left[l] > right[r]) {
-            bt(l, r + 1, s + right[r]);
+        if (dp[l][r] != -1) {
+            return dp[l][r];
         }
+
+        int res = Math.max(dfs(l + 1, r), dfs(l + 1, r + 1));
+
+        if (left[l] > right[r]) {
+            res = Math.max(res, right[r] + dfs(l, r + 1));
+        }
+
+        return dp[l][r] =  res;
     }
 }
