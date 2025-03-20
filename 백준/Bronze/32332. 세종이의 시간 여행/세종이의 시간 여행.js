@@ -14,7 +14,7 @@ function main() {
     let T = (T0 * 2 - T1).toFixed(3);
     let P = (P0 * 2 - P1).toFixed(3);
 
-    console.log(Y + " " + (M <= 0 ? 12 + M : M > 12 ? M - 12 : M) + " " + (D <= 0 ? 30 + D : D > 30 ? D - 30 : D) + " " + T + " " + P);
+    console.log(Y, M <= 0 ? 12 + M : M > 12 ? M - 12 : M, D <= 0 ? 30 + D : D > 30 ? D - 30 : D, T, P);
 }
 
 main();
