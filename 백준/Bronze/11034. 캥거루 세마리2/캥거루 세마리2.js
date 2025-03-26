@@ -1,15 +1,14 @@
-const readline = require("readline");
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
+const fs = require('fs');
+const input = fs.readFileSync('/dev/stdin').toString().trim().split('\n');
 
-function solution(A, B, C) {
-    console.log(Math.max(C - B, B - A) - 1);
+function main () {
+    for (let i = 0 ; i < input.length ; i++) {
+        const [ A, B, C ] = input[i].split(' ').map(Number);
+
+        let max = Math.max(C - B, B - A);
+
+        console.log(max - 1)
+    }
 }
 
-rl.on('line', (userInput) => {
-    solution(...userInput.split(' ').map(Number));
-}).on('close', () => {
-    process.exit();
-});
+main();
