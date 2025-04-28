@@ -23,23 +23,8 @@ function main () {
 
         let x = i;
         let y = i;
+
         let d = 0;
-        
-        if (r === 0) {
-            res[x][y] = arr[x][y];
-            for (let j = 1 ; j < C ; j++) {
-                if (x + D[d][0] < i || y + D[d][1] < i || x + D[d][0] >= N - i || y + D[d][1] >= M - i) d = (d + 1) % 4;
-
-                x = x + D[d][0];
-                y = y + D[d][1];
-
-                res[x][y] = arr[x][y];
-            }
-
-            continue;
-        }
-        
-
         // 처음 0, 0에 삽입할 위치 찾기
         for (let j = 1 ; j < r ; j++) {
             // 배열의 범위에서 벗어나면 방향을 바꿈
@@ -48,12 +33,17 @@ function main () {
             x = x + D[d][0];
             y = y + D[d][1];    
         }
-
-        if (x + D[d][0] < i || y + D[d][1] < i || x + D[d][0] >= N - i || y + D[d][1] >= M - i) d = (d + 1) % 4;
-
-        let nx = x + D[d][0];
-        let ny = y + D[d][1];
-
+        
+        let nx = i;
+        let ny = i;
+        
+        if (r !== 0) {
+            if (x + D[d][0] < i || y + D[d][1] < i || x + D[d][0] >= N - i || y + D[d][1] >= M - i) d = (d + 1) % 4;
+            
+            nx = x + D[d][0];
+            ny = y + D[d][1];
+        }
+        
         x = i;
         y = i;
 
