@@ -8,17 +8,9 @@ const readLine = () => {
 }
 
 const main = () => {
-  const N = +readLine();
+  const N = +readLine() - 2;
 
-  let last = 0n;
-  let ans = BigInt(0);
-
-  for (let i = 1 ; i < N - 1 ; i++) {
-    last = last + BigInt(i);
-    ans += last;
-  }
-
-  console.log(`${ans}\n3`)
+  console.log(`${(BigInt(N) ** 3n + 3n * BigInt(N) ** 2n + 2n * BigInt(N)) / 6n}\n3`);
 }
 
 main();
