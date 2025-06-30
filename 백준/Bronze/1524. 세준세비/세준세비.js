@@ -14,10 +14,10 @@ const main = () => {
     readLine();
     const [ N, M ] = readLine().split(' ').map(Number);
 
-    const sejun = readLine().split(' ').map(Number).sort((a, b) => b - a);
-    const sebi = readLine().split(' ').map(Number).sort((a, b) => b - a);
+    const sejun = Math.max(...readLine().split(' ').map(Number));
+    const sebi = Math.max(...readLine().split(' ').map(Number));
 
-    return sejun[0] >= sebi[0] ? 'S' : 'B'
+    return sejun >= sebi ? 'S' : 'B'
   })
 
   console.log(res.join('\n'))
