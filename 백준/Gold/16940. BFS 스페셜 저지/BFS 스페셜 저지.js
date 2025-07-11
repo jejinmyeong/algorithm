@@ -7,6 +7,48 @@ const readLine = () => {
   return input[currentLine++];
 }
 
+class Queue {
+  #arr;
+  #idx;
+
+  constructor() {
+    this.#arr = [];
+    this.#idx = 0;
+  }
+
+  push(value) {
+    this.#arr.push(value);
+  }
+
+  pop() {
+    if (this.isEmpty()) {
+      throw new Error('queue is Empty');
+    }
+
+    const value = this.#arr[this.#idx];
+    this.#idx++;
+
+    return value;
+  }
+
+  peek() {
+    if (this.isEmpty()) {
+      throw new Error('queue is Empty');
+    }
+
+    return this.#arr[this.#idx];
+  }
+
+  isEmpty() {
+    return this.#arr.length - this.#idx === 0;
+  }
+
+  size() {
+    return this.#arr.length - this.#idx;
+  }
+
+}
+
 const main = () => {
   const N = +readLine();
   const nodes = Array.from({ length: N + 1 }, () => []);
@@ -29,14 +71,15 @@ const main = () => {
     return;
   }
 
-  const queue = [start];
+  const queue = new Queue();
+  queue.push(start);
   visited[start] = true;
 
   const temp = new Set();
   let idx = 1;
 
-  while (queue.length !== 0) {
-    const cur = queue.shift();
+  while (!queue.isEmpty()) {
+    const cur = queue.pop();
 
     for (const n of nodes[cur]) {
       if (visited[n]) continue;
