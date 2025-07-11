@@ -22,7 +22,7 @@ const main = () => {
 
   const visited = Array(N + 1).fill(false);
 
-  const start = arr.shift();
+  const start = arr[0];
 
   if (start !== 1) {
     console.log(0);
@@ -33,6 +33,7 @@ const main = () => {
   visited[start] = true;
 
   const temp = new Set();
+  let idx = 1;
 
   while (queue.length !== 0) {
     const cur = queue.shift();
@@ -44,18 +45,20 @@ const main = () => {
       temp.add(n);
     }
 
-    for (let i = 0 ; i < temp.size ; i++) {
-      let num = arr.shift();
+    for (let i = idx ; i < idx + temp.size ; i++) {
+      let num = arr[i];
       if (temp.has(num)) queue.push(num);
       else {
         console.log(0);
         return;
       }
     }
+
+    idx += temp.size;
     temp.clear();
   }
 
-  if (arr.length === 0) {
+  if (idx === N) {
     console.log(1);
   } else {
     console.log(0);
